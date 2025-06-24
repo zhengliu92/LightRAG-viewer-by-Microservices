@@ -4,7 +4,7 @@ import lightrag.llm as llm
 import asyncio
 
 OPENAI_API_KEY = ""
-OPENAI_PROJECT_ID = "proj_aoST7rdZ9XPpkgCKq73Br5vg"
+OPENAI_PROJECT_ID = ""
 
 
 async def test_embedding():
