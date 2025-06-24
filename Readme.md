@@ -5,7 +5,7 @@ This project implements a lightweight Retrieval-Augmented Generation (RAG) syste
 [中文介绍](./ReadMe-zh.md)
 
 
-[Click here to watch the demo video](demo-video.mp4)
+[Click here to watch the demo video](./demo-video.mp4)
 
 ---
 
