@@ -1,0 +1,223 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package file_service;
+option go_package = "github.com/zhengliu92/minio-file-server/file_service";
+
+service FileService {
+
+  rpc GetFilesUrl (GetFilesUrlRequest) returns (GetFilesUrlResponse) {
+    option (google.api.http) = {
+        post: "/v1/get_files_url",
+        body: "*"
+    };
+  }
+
+
+  rpc Base64UploadFiles (Base64UploadFilesRequest) returns (Base64UploadFilesResponse) {
+      option (google.api.http) = {
+          post: "/v1/upload_files"
+          body: "*"
+      };
+  }
+
+  rpc SaveStringToFile (SaveStringToFileRequest) returns (SaveStringToFileResponse) {
+    option (google.api.http) = {
+      post: "/v1/save_string_to_file"
+      body: "*"
+    };
+  }
+
+
+  rpc UploadChunk (UploadChunkRequest) returns (UploadChunkResponse) {
+    option (google.api.http) = {
+      post: "/v1/upload_chunk"
+      body: "*"
+    };
+  }
+
+  rpc CompleteUpload (CompleteUploadRequest) returns (CompleteUploadResponse) {
+    option (google.api.http) = {
+      post: "/v1/complete_upload"
+      body: "*"
+    };
+  }
+
+  rpc GetFileBytes (GetFileBytesRequest) returns (GetFileBytesResponse) {
+    option (google.api.http) = {
+      post: "/v1/get_file_byte"
+      body: "*"
+    };
+  }
+
+  rpc GetFileText (GetFileTextRequest) returns (GetFileTextResponse) {
+    option (google.api.http) = {
+      post: "/v1/get_file_text"
+      body: "*"
+    };
+  }
+
+  rpc DeleteFiles (DeleteFilesRequest) returns (DeleteFilesResponse) {
+    option (google.api.http) = {
+        delete: "/v1/delete_files"
+    };
+  }
+
+
+  rpc CreateBucket (CreateBucketRequest) returns (CreateBucketResponse) {
+    option (google.api.http) = {
+        post: "/v1/create_bucket"
+        body: "*"
+    };
+}
+
+  rpc ListBucketFiles (ListBucketFilesRequest) returns (ListBucketFilesResponse) {
+    option (google.api.http) = {
+        get: "/v1/list_bucket_files"
+    };
+  }
+
+  rpc DeleteBucket (DeleteBucketRequest) returns (DeleteBucketResponse) {
+    option (google.api.http) = {
+        delete: "/v1/delete_bucket"
+    };
+  }
+
+  rpc NewFolderInBucket (NewFolderInBucketRequest) returns (NewFolderInBucketResponse) {
+    option (google.api.http) = {
+        post: "/v1/new_folder_in_bucket"
+        body: "*"
+    };
+  }
+
+}
+
+message NewFolderInBucketRequest {
+  string bucket_name = 1;
+  string folder_name = 2;
+}
+
+message NewFolderInBucketResponse {
+  string message = 1;
+}
+
+
+message Base64UploadFilesRequest {
+  string bucket_name = 1; // Name of the bucket where files will be uploaded
+  repeated File files = 2; // List of files to be uploaded
+}
+
+message Base64UploadFilesResponse {
+  string message = 1;     // Additional details
+}
+
+
+message File {
+  string name = 1;        // File name
+  bytes content = 2;      // File content
+}
+
+message CreateBucketRequest {
+  string bucket_name = 1; // Name of the bucket to be created
+}
+
+message CreateBucketResponse {
+  string message = 1;     // Additional details
+}
+
+message SaveStringToFileRequest{
+  string bucket_name = 1;
+  string file_name = 2;
+  string content = 3;
+}
+
+message SaveStringToFileResponse{
+  string message = 1;
+}
+
+
+message ListBucketFilesRequest {
+  string bucket_name = 1; // Name of the bucket to list files from
+  optional string folder_name = 2; // Name of the folder to list files from
+}
+
+message ListBucketFilesResponse {
+  string message = 1;
+  repeated string files = 2; 
+  string folder_name = 3;
+}
+
+
+message DeleteBucketRequest {
+  string bucket_name = 1; // Name of the bucket to be deleted
+}
+
+message DeleteBucketResponse {
+  string message = 1;     // Additional details
+}
+
+
+message GetFileBytesRequest {
+  string bucket_name = 1; 
+  string file_name = 2; 
+}
+
+message GetFileBytesResponse {
+  string file_name = 1;
+  string content_type = 2;
+  bytes content = 3; 
+}
+
+message DeleteFilesRequest {
+  string bucket_name = 1; 
+  repeated string files = 2; 
+}
+
+message DeleteFilesResponse {
+  string message = 1;    
+}
+
+message GetFilesUrlRequest {
+  string bucket_name = 1; 
+  repeated string files = 2; 
+}
+
+message GetFilesUrlResponse {
+  string message = 1;    
+  repeated string urls = 2; 
+}
+
+message UploadChunkRequest {
+  string bucket_name = 1; 
+  string file_name = 2; // 文件名
+  int64 chunk_index = 3; // 当前分片索引
+  bytes chunk_data = 4; // 分片数据
+}
+
+message UploadChunkResponse {
+  string message = 1; // 状态消息
+  bool success = 2; // 是否成功
+}
+
+message CompleteUploadRequest {
+  string bucket_name = 1; 
+  string file_name = 2; // 文件名
+  int64 total_chunks = 3; // 分片总数
+}
+
+message CompleteUploadResponse {
+  string message = 1; // 状态消息
+  bool success = 2; // 是否成功
+}
+
+
+message GetFileTextRequest {
+  string bucket_name = 1; 
+  string file_name = 2; 
+}
+
+message GetFileTextResponse {
+  string message = 1;
+  string content = 2;
+}

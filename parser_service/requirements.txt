@@ -1,0 +1,9 @@
+python-dotenv
+grpcio
+grpcio-tools
+pydantic
+streamlit
+marker-pdf==1.2.7
+redis
+grpcio-reflection
+nvidia-ml-py3

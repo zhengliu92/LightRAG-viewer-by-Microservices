@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+    
+message FloatArray {
+    repeated float values = 1;
+}
+
+message TextArray {
+    repeated string texts = 1;
+}
+
+
+message EmbeddingRequest {
+    repeated string texts = 1;
+    optional int32 max_length = 2;
+    optional int32 batch_size = 3;
+}
+
+
+message EmbeddingResponse {
+    repeated FloatArray data = 1;
+    optional int32 code = 2;
+    optional string status = 3;
+    optional string message = 4;
+}   
+
+message RerankerRequest {
+    string query = 1;
+    repeated string documents = 2;
+}
+
+message RerankerResponse {
+    repeated FloatArray data = 1;
+    optional int32 code = 2;
+    optional string status = 3;
+    optional string message = 4;
+}
+
+
+service EmbeddingService {
+    rpc Embedding(EmbeddingRequest) returns (EmbeddingResponse);
+    rpc Reranker(RerankerRequest) returns (RerankerResponse);
+}

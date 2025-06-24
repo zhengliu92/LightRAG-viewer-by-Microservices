@@ -1,0 +1,64 @@
+syntax = "proto3";
+package parser_service;
+option go_package = "gateway_service/parser_service";
+
+service ParserService {
+    rpc ParseDocument(ParseDocumentRequest) returns (ParseDocumentResponse);
+    rpc GetParseStatus(GetParseStatusRequest) returns (GetParseStatusResponse);
+    rpc StopParse(StopParseRequest) returns (StopParseResponse);
+}
+
+message DocText {
+    string text = 1;
+    string section = 2;
+    int32 page_num = 3;
+}
+
+message Figure {
+    string section = 1;
+    string caption = 2;
+    int32 page_num = 3;
+    string img_path = 4;
+}
+
+message Table {
+    string section = 1;
+    string caption = 2;
+    int32 page_num = 3;
+    string table_html = 4;
+}
+
+message ParseDocumentRequest {
+    string user_id = 1;
+    string doc_id = 2;
+    string bucket_name = 3;
+    string doc_path = 4;
+}
+
+message ParseDocumentResponse {
+    string message = 1;
+}
+
+message GetParseStatusRequest {
+    string bucket_name = 1;
+    string doc_path = 2;
+}
+
+message GetParseStatusResponse {
+    string status = 1;
+    float percent = 2;
+    bool is_finished = 3;
+    bool is_failed = 4;
+    repeated DocText texts = 5;
+    repeated Figure figures = 6;
+    repeated Table tables = 7;
+}
+
+message StopParseRequest {
+    string bucket_name = 1;
+    string doc_path = 2;
+}
+
+message StopParseResponse {
+    string message = 1;
+}

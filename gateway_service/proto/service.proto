@@ -1,0 +1,452 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/api/annotations.proto";
+import "rpc_user.proto";
+import "rpc_auth.proto";
+import "rpc_role.proto";
+import "rpc_file.proto";
+import "rpc_kb.proto";
+import "rpc_proj.proto";
+option go_package = "gateway_service/pb";
+
+service GatewayService {
+    rpc LoginUser (LoginUserRequest) returns (LoginUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/login"
+            body: "*"
+        };
+    }
+    rpc LogoutUser (LogoutUserRequest) returns (LogoutUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/logout"
+            body: "*"
+        };
+    }
+
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+      option (google.api.http) = {
+        post: "/v1/user/create"
+        body: "*"
+      };
+    };
+
+    rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse) {
+      option (google.api.http) = {
+        post: "/v1/role/create"
+        body: "*"
+      };
+    };
+
+    rpc GetAllRoles(GetAllRolesRequest) returns (GetAllRolesResponse) {
+      option (google.api.http) = {
+        get: "/v1/role/list"
+      };
+    };
+
+    rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse) {
+      option (google.api.http) = {
+        delete: "/v1/role/delete/{role_name}"
+      };
+    };
+
+    rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {
+      option (google.api.http) = {
+        patch: "/v1/user/activate/{id}"
+      };
+    };
+
+    rpc DeactivateUser(DeactivateUserRequest) returns (DeactivateUserResponse) {
+      option (google.api.http) = {
+        patch: "/v1/user/deactivate/{id}"
+      };
+    };
+    
+
+
+
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {
+      option (google.api.http) = {
+          patch: "/v1/user/update"
+          body: "*"
+      };
+    }
+
+    rpc GetUserMe (MeRequest) returns (MeResponse) {
+      option (google.api.http) = {
+          post: "/v1/user/get_me"
+          body: "*"
+      };
+    }
+
+
+
+    rpc RenewAccessToken (RenewAccessTokenRequest) returns (RenewAccessTokenResponse) {
+      option (google.api.http) = {
+          post: "/v1/user/renew"
+          body: "*"
+      };
+    }
+
+    rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/{id}"
+      };
+    };
+  
+    rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse) {
+      option (google.api.http) = {
+        get: "/v1/user/email/{email}"
+      };
+    };
+
+
+    rpc GetFileBytes(GetFileBytesRequest) returns (GetFileBytesResponse) {
+      option (google.api.http) = {
+        post: "/v1/file/get_file_bytes"
+        body: "*"
+      };
+    }
+  
+  
+    rpc Base64UploadFiles (Base64UploadFilesRequest) returns (Base64UploadFilesResponse) {
+        option (google.api.http) = {
+            post: "/v1/file/upload_files"
+            body: "*"
+        };
+    }
+  
+  
+    rpc UploadChunk (UploadChunkRequest) returns (UploadChunkResponse) {
+      option (google.api.http) = {
+        post: "/v1/file/upload_chunk"
+        body: "*"
+      };
+    }
+  
+    rpc CompleteUpload (CompleteUploadRequest) returns (CompleteUploadResponse) {
+      option (google.api.http) = {
+        post: "/v1/file/complete_upload"
+        body: "*"
+      };
+    }
+  
+
+  
+    rpc DeleteFiles (DeleteFilesRequest) returns (DeleteFilesResponse) {
+      option (google.api.http) = {
+        post: "/v1/file/delete_files"
+        body: "*"
+      };
+    }
+  
+    rpc CreateBucket (CreateBucketRequest) returns (CreateBucketResponse) {
+      option (google.api.http) = {
+          post: "/v1/file/create_bucket"
+          body: "*"
+      };
+  }
+  
+  rpc ListBucketFiles (ListBucketFilesRequest) returns (ListBucketFilesResponse) {
+      option (google.api.http) = {
+          get: "/v1/file/list_bucket_files"
+      };
+    }
+  
+  rpc DeleteBucket (DeleteBucketRequest) returns (DeleteBucketResponse) {
+      option (google.api.http) = {
+          delete: "/v1/file/delete_bucket"
+      };
+    }
+  
+  rpc NewFolderInBucket (NewFolderInBucketRequest) returns (NewFolderInBucketResponse) {
+      option (google.api.http) = {
+          post: "/v1/file/new_folder_in_bucket"
+          body: "*"
+      };
+    }
+
+  // Knowledge Base operations
+  rpc CreateKB(CreateKBRequest) returns (CreateKBResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb"
+          body: "*"
+      };
+  }
+  
+
+  rpc GetUserKBs(GetUserKBsRequest) returns (GetUserKBsResponse) {
+      option (google.api.http) = {
+          get: "/v1/kb/user"
+      };  
+  }
+  
+  rpc ChangeKBName(ChangeKBNameRequest) returns (ChangeKBNameResponse) {
+      option (google.api.http) = {
+          patch: "/v1/kb/{id}"
+          body: "*"
+      };
+  }
+  
+  rpc DeleteKB(DeleteKBRequest) returns (DeleteKBResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/delete"
+          body:"*"
+      };
+  }
+  
+
+  // KB File operations
+  rpc CreateKBFile(CreateKBFileRequest) returns (CreateKBFileResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files"
+          body: "*"
+      };
+  }
+  
+
+  rpc UpdateKBFile(UpdateKBFileRequest) returns (UpdateKBFileResponse) {
+      option (google.api.http) = {
+          patch: "/v1/kb/files/update"
+          body: "*"
+      };
+  }
+  
+  rpc GetKBFilesByFolder(GetKBFilesByFolderRequest) returns (GetKBFilesByFolderResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/folder"
+          body: "*"
+      };
+  }
+  
+  rpc GetKBWithKBFilesByKBID(GetKBWithKBFilesByKBIDRequest) returns (GetKBWithKBFilesByKBIDResponse) {
+      option (google.api.http) = {
+          get: "/v1/kb/files/kb/{kb_id}"
+      };
+  }
+
+  rpc DeleteKBFiles(DeleteKBFilesRequest) returns (DeleteKBFilesResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/delete"
+          body: "*"
+      };
+  }
+
+
+  rpc AddFileToKB(AddFileToKBRequest) returns (AddFileToKBResponse) {
+    option (google.api.http) = {
+        post: "/v1/kb/files/add"
+        body: "*"
+    };
+}
+
+
+  rpc StartParseKBFile(StartParseKBFileRequest) returns (StartParseKBFileResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/start_parse"
+          body: "*"
+      };
+  }
+
+
+
+  rpc StartBuildKBFile(StartBuildKBFileRequest) returns (StartBuildKBFileResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/start_build"
+          body: "*"
+      };
+  }
+
+  rpc StopBuildKBFile(StopBuildKBFileRequest) returns (StopBuildKBFileResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/stop_build"
+          body: "*"
+      };
+  }
+
+
+
+  // File Asset operations
+  rpc CreateFileAsset(CreateFileAssetRequest) returns (CreateFileAssetResponse) {
+      option (google.api.http) = {
+          post: "/v1/kb/files/{kb_file_id}/assets"
+          body: "*"
+      };
+  }
+  
+
+  rpc DeleteFileAsset(DeleteFileAssetRequest) returns (DeleteFileAssetResponse) {
+      option (google.api.http) = {
+          delete: "/v1/kb/files/assets/{id}"
+      };
+  }
+  
+  rpc DeleteFileAssetByKBFileID(DeleteFileAssetByKBFileIDRequest) returns (DeleteFileAssetByKBFileIDResponse) {
+      option (google.api.http) = {
+          delete: "/v1/kb/files/{kb_file_id}/assets"
+      };
+  }
+  
+  rpc DeleteFileAssetByOwner(DeleteFileAssetByOwnerRequest) returns (DeleteFileAssetByOwnerResponse) {
+      option (google.api.http) = {
+          delete: "/v1/kb/files/assets/owner"
+      };
+  }
+  
+  rpc GetFileAssetsByKBFileID(GetFileAssetsByKBFileIDRequest) returns (GetFileAssetsByKBFileIDResponse) {
+    option (google.api.http) = {
+        post: "/v1/kb/files/assets/kb_file_id"
+        body: "*"
+    };
+  }
+
+
+  rpc GetFigureByID(GetFigureByIDRequest) returns (GetFigureByIDResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/files/assets/figure"
+      body: "*"
+    };
+  }
+
+  rpc UpsertRagConfig(UpsertRagConfigRequest) returns (UpsertRagConfigResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/config"
+      body: "*"
+    };
+  }
+
+  rpc GetRagConfigByKBID(GetRagConfigByKBIDRequest) returns (GetRagConfigByKBIDResponse) {
+    option (google.api.http) = {
+      get: "/v1/kb/config/{kb_id}"
+    };
+  }
+
+
+  rpc ParseAndBuildKB(ParseAndBuildKBRequest) returns (ParseAndBuildKBResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/parse_and_build"
+      body: "*"
+    };
+  }
+
+  rpc QueryKBFigures(QueryKBFiguresRequest) returns (QueryKBFiguresResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/figures/query"
+      body: "*"
+    };
+  }
+
+  rpc QueryKBTables(QueryKBTablesRequest) returns (QueryKBTablesResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/tables/query"
+      body: "*"
+    };
+  }
+
+  rpc QueryKBContext(QueryKBContextRequest) returns (QueryKBContextResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/context/query"
+      body: "*"
+    };
+  }
+
+
+
+  rpc GetKBGraph(GetKBGraphRequest) returns (GetKBGraphResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/graph"
+      body: "*"
+    };
+  }
+
+  rpc UnlinkKBDocument(UnlinkKBDocumentRequest) returns (UnlinkKBDocumentResponse) {
+    option (google.api.http) = {
+      post: "/v1/kb/files/remove"
+      body: "*"
+    };
+  }
+
+
+
+  // Project operations
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/create"
+      body: "*"
+    };  
+  }
+
+  rpc AddUserToProject(AddUserToProjectRequest) returns (AddUserToProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/user/add"
+      body: "*"
+    };
+  }
+
+  rpc RemoveUserFromProject(RemoveUserFromProjectRequest) returns (RemoveUserFromProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/user/remove"
+      body: "*"
+    };
+  }
+
+  rpc AddKBToProject(AddKBToProjectRequest) returns (AddKBToProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/kb/add"
+      body: "*"
+    };
+  }
+  
+  rpc RemoveKBFromProject(RemoveKBFromProjectRequest) returns (RemoveKBFromProjectResponse) {
+    option (google.api.http) = {``
+      post: "/v1/proj/kb/remove"
+      body: "*"
+    };
+  }
+
+  rpc RenameProject(RenameProjectRequest) returns (RenameProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/rename"
+      body: "*"
+    };
+  }
+
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse) {
+    option (google.api.http) = {
+      post: "/v1/proj/delete"
+      body: "*"
+    };
+  }
+
+  rpc GetUserProjectsWithKBs(GetUserProjectsWithKBsRequest) returns (GetUserProjectsWithKBsResponse) {
+    option (google.api.http) = {
+      get: "/v1/proj/user"
+    };
+  }
+
+  rpc ListUsersWithProjects(ListUsersWithProjectsRequest) returns (ListUsersWithProjectsResponse) {
+    option (google.api.http) = {
+      get: "/v1/proj/list_users_with_projects"
+    };
+  }
+  
+
+
+  rpc GetProjectWithUsersAndKBs(GetProjectWithUsersAndKBsRequest) returns (GetProjectWithUsersAndKBsResponse) {
+    option (google.api.http) = {
+      get: "/v1/proj/get_project_with_users_and_kbs/{project_id}"
+    };
+  }
+
+
+  rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse) {
+    option (google.api.http) = {
+      get: "/v1/proj/list"
+    };
+  }
+
+
+
+}
+

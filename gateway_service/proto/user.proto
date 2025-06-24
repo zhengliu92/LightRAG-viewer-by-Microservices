@@ -1,0 +1,21 @@
+syntax = "proto3";
+package pb;
+option go_package = "gateway_service/pb";
+import "google/protobuf/timestamp.proto";
+
+
+message User {
+  string id = 1;
+  string email = 2;
+  string username = 3;
+  bool is_active = 4;
+  string role_name = 5;
+  string hashed_password = 6;
+  string avatar = 7;
+  string phone = 8;
+  bool is_email_verified = 9;
+  google.protobuf.Timestamp last_login = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp deleted_at = 12;
+}
+

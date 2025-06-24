@@ -1,0 +1,69 @@
+syntax = "proto3";
+package pb;
+option go_package = "gateway_service/pb";
+import "user.proto";
+
+// CreateUserRequest is used for creating a new user
+message CreateUserRequest {
+  string email = 1;
+  string username = 2;
+  string password = 3;
+}
+
+// CreateUserResponse is used for the response after creating a user
+message CreateUserResponse {
+  User user = 1;
+}
+
+// GetUserByIDRequest is used for querying a user by ID
+message GetUserByIDRequest {
+  string id = 1;
+}
+
+// GetUserByIDResponse is the response containing the user data
+message GetUserByIDResponse {
+  User user = 1;
+}
+
+// GetUserByEmailRequest is used for querying a user by email
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+// GetUserByEmailResponse is the response containing the user data
+message GetUserByEmailResponse {
+  User user = 1;
+}
+
+
+
+
+// DeactivateUserRequest is used to deactivate a user
+message DeactivateUserRequest {
+  string id = 1;
+}
+
+// DeactivateUserResponse is the response after deactivating a user
+message DeactivateUserResponse {
+  string message = 1;
+}
+
+
+//ActivateUserRequest is used to activate a user
+message ActivateUserRequest {
+  string id = 1;
+}
+
+//ActivateUserResponse is the response after activating a user
+message ActivateUserResponse {
+  string message = 1;
+}
+
+
+message MeRequest {
+}
+
+message MeResponse {
+  User user = 1;
+}
+

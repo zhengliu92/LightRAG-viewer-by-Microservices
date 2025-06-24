@@ -1,0 +1,32 @@
+syntax = "proto3";
+package pb;
+option go_package = "gateway_service/pb";
+import "google/protobuf/timestamp.proto";
+
+message Role{
+    string role_name = 1;
+    google.protobuf.Timestamp created_at = 2;
+}
+
+message CreateRoleRequest {
+  string role_name = 1;
+}
+
+message CreateRoleResponse {
+    Role role = 1;
+}
+
+message DeleteRoleRequest {
+    string role_name = 1;
+}
+
+message DeleteRoleResponse {
+    string message = 1;
+}
+
+message GetAllRolesRequest {
+}
+
+message GetAllRolesResponse {
+    repeated Role roles = 1;
+}

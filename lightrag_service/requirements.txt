@@ -1,0 +1,46 @@
+grpcio
+grpcio-tools
+aioboto3
+# ollama
+# torch
+# torchvision
+# torchaudio
+httpx
+# accelerate
+aioboto3
+aiohttp
+
+redis 
+# database packages
+graspologic
+gremlinpython
+hnswlib
+nano-vectordb
+neo4j
+networkx
+openai
+oracledb
+psycopg[binary,pool]
+pymilvus
+pymongo
+pymysql
+pyvis
+# lmdeploy[all]
+sqlalchemy
+tenacity
+
+
+# LLM packages
+tiktoken
+# torch
+# transformers
+xxhash
+
+ascii_colors
+fastapi
+nano_vectordb
+python-multipart
+uvicorn
+pytest
+pytest-asyncio
+sse-starlette

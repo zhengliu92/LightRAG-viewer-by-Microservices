@@ -1,0 +1,50 @@
+
+Ù
+
+parser_service.protoparser_service"R
+DocText
+text (	Rtext
+section (	Rsection
+page_num (RpageNum"r
+Figure
+section (	Rsection
+caption (	Rcaption
+page_num (RpageNum
+img_path (	RimgPath"u
+Table
+section (	Rsection
+caption (	Rcaption
+page_num (RpageNum
+
+table_html (	R	tableHtml"‚
+ParseDocumentRequest
+user_id (	RuserId
+doc_id (	RdocId
+bucket_name (	R
+bucketName
+doc_path (	RdocPath"1
+ParseDocumentResponse
+message (	Rmessage"S
+GetParseStatusRequest
+bucket_name (	R
+bucketName
+doc_path (	RdocPath"˜
+GetParseStatusResponse
+status (	Rstatus
+percent (Rpercent
+is_finished (R
+isFinished
+	is_failed (RisFailed-
+texts (2.parser_service.DocTextRtexts0
+figures (2.parser_service.FigureRfigures-
+tables (2.parser_service.TableRtables"N
+StopParseRequest
+bucket_name (	R
+bucketName
+doc_path (	RdocPath"-
+StopParseResponse
+message (	Rmessage2 
+ParserService\
+ParseDocument$.parser_service.ParseDocumentRequest%.parser_service.ParseDocumentResponse_
+GetParseStatus%.parser_service.GetParseStatusRequest&.parser_service.GetParseStatusResponseP
+	StopParse .parser_service.StopParseRequest!.parser_service.StopParseResponseB Zgateway_service/parser_servicebproto3

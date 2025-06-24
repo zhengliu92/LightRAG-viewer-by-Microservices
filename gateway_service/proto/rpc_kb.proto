@@ -1,0 +1,440 @@
+syntax = "proto3";
+package pb;
+import "google/protobuf/timestamp.proto";
+option go_package = "gateway_service/pb";
+
+message KB {
+    string id = 1;
+    string name = 2;
+    string owner_id = 3;
+    optional int64 kb_file_count = 4; //preserve for compatibility
+    optional int64 kb_file_build_finished_count = 5;
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+}
+
+
+message KBFile {
+    string id = 1;
+    string name = 2;
+    string path = 3;
+    string folder = 4;
+    string owner_id = 5;
+    string parse_status = 6;
+    optional float parse_percentage = 7;
+    optional bool is_parse_finished = 8;
+    optional int64 size = 9;
+    google.protobuf.Timestamp created_at = 10;
+    google.protobuf.Timestamp updated_at = 11;
+}
+
+
+
+message KBFileWithKBMapping {
+    string id = 1;
+    string name = 2;
+    string path = 3;
+    string folder = 4;
+    string owner_id = 5;
+    string parse_status = 6;
+    optional float parse_percentage = 7;
+    optional bool is_parse_finished = 8;
+    optional bool is_parse_failed = 9;
+    optional int64 size = 10;
+    string build_status = 11;
+    optional float build_percentage = 12;
+    optional bool is_build_finished = 13;
+    optional bool is_build_failed = 14;
+    google.protobuf.Timestamp created_at = 15;
+    google.protobuf.Timestamp updated_at = 16;
+}
+
+
+message KBWithKBFiles {
+    string id = 1;
+    string name = 2;
+    string owner_id = 3;
+    optional int64 kb_file_count = 4; 
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+    repeated KBFileWithKBMapping kb_files = 7;
+}
+
+
+message KBBrief {
+    string id = 1;
+    string name = 2;
+}
+
+
+
+message KBFileWithKBs {
+    string id = 1;
+    string name = 2;
+    string path = 3;
+    string folder = 4;
+    string owner_id = 5;
+    string parse_status = 6;
+    optional float parse_percentage = 7;
+    optional bool is_parse_finished = 8;
+    optional bool is_parse_failed = 9;
+    optional int64 size = 10;
+    google.protobuf.Timestamp created_at = 11;
+    google.protobuf.Timestamp updated_at = 12;
+    repeated KBBrief kbs = 13;
+}
+
+message CreateKBRequest {
+    string name = 1;
+    optional string project_id = 2;
+}
+
+message CreateKBResponse {
+   string message = 1;
+}
+
+message ChangeKBNameRequest {
+    string id = 1;
+    string name = 2;
+}
+
+message ChangeKBNameResponse {
+    string message = 1;
+}
+
+message GetKBRequest {
+    string id = 1;
+}
+
+message GetKBResponse {
+    KB knowledge_base = 1;
+}
+
+
+message DeleteKBRequest {
+    string kb_id = 1;
+    optional string proj_id = 2;
+}
+
+message DeleteKBResponse {
+    string message = 1;
+}
+
+message GetUserKBsRequest {}
+
+message GetUserKBsResponse {
+    repeated KB kbs = 1;
+}
+
+
+message CreateKBFileRequest {
+    string name = 1;
+    string path = 2;
+    string folder = 3;
+    int64 size = 4;
+    optional string kb_id = 5;
+}
+
+message CreateKBFileResponse {
+    string message = 1;
+}
+
+message UpdateKBFileRequest {
+    string id = 1;
+    optional string name = 2;
+    optional string path = 3;
+    optional string folder = 4;
+    optional string owner_id = 5;
+    optional string parse_status = 6;
+    optional float parse_percentage = 7;
+    optional bool is_parse_finished = 8;
+}
+
+
+message UpdateKBFileResponse {
+    string message = 1;
+}
+
+
+message GetKBWithKBFilesByKBIDRequest {
+    string kb_id = 1;
+}
+
+message GetKBWithKBFilesByKBIDResponse {
+     KBWithKBFiles data = 1;
+}
+
+
+message GetKBFilesByFolderRequest {
+    string folder = 1;
+}
+
+message GetKBFilesByFolderResponse {
+    repeated KBFileWithKBs data = 1;
+}
+
+
+message DeleteKBFilesRequest {
+    repeated string file_ids = 1;
+}
+
+message DeleteKBFilesResponse {
+    string message = 1;
+}
+
+message AddFileToKBRequest {
+    string kb_id = 1;
+    string kb_file_id = 2;
+}
+
+message AddFileToKBResponse {
+    string message = 1;
+}
+
+
+
+// File Asset messages
+message FileFigure {
+    string id = 1;
+    string owner_id = 2;
+    string section = 3;
+    string kb_file_id = 4;
+    string caption = 5;
+    bytes img_bytes = 6;
+    optional int32 page_number = 7;
+}
+
+message FileText {
+    string id = 1;
+    string owner_id = 2;
+    string kb_file_id = 3;
+    string text = 4;
+    string section = 5;
+    optional int32 page_number = 6;
+}
+
+message FileTable {
+    string id = 1;
+    string owner_id = 2;
+    string section = 3;
+    string kb_file_id = 4;
+    string table_html = 5;
+    string caption = 6;
+    optional int32 page_number = 7;
+}
+
+
+
+
+message CreateFileAssetRequest {
+    string name = 1;
+    string kb_file_id = 2;
+    string path = 3;
+}
+
+message CreateFileAssetResponse {
+    string message = 1;
+}
+
+message GetFileAssetsByKBFileIDRequest {
+    string kb_file_id = 1;
+}
+
+message GetFileAssetsByKBFileIDResponse {
+    repeated FileText file_texts = 1;
+    repeated FileFigure file_figures = 2;
+    repeated FileTable file_tables = 3;
+}
+
+message DeleteFileAssetRequest {
+    string id = 1;
+}
+
+message DeleteFileAssetResponse {
+    string message = 1;
+}
+
+message DeleteFileAssetByKBFileIDRequest {
+    string kb_file_id = 1;
+}
+
+message DeleteFileAssetByKBFileIDResponse {
+    string message = 1;
+}
+
+message DeleteFileAssetByOwnerRequest {
+}
+
+message DeleteFileAssetByOwnerResponse {
+    string message = 1;
+}
+
+message StartParseKBFileRequest {
+    string kb_file_id = 1;
+}
+
+message StartParseKBFileResponse {
+    string message = 1;
+}
+
+message StartBuildKBFileRequest {
+    string kb_file_id = 1;
+    string kb_id = 2;
+    string api_key = 3;
+    optional string project_api_key = 4;
+    string api_provider = 5;
+}
+
+message StopBuildKBFileRequest {
+    string kb_file_id = 1;
+    string kb_id = 2;
+}
+
+message StopBuildKBFileResponse {
+    string message = 1;
+}
+
+message StartBuildKBFileResponse {
+    string message = 1;
+}
+
+message GetFigureByIDRequest {
+    string id = 1;
+}
+
+message GetFigureByIDResponse {
+    bytes figure = 1;
+}
+
+message UpsertRagConfigRequest {
+    string kb_id = 1;
+    int32 chunk_token_size = 2;
+    int32 chunk_overlap_token_size = 3;
+    string embed_model = 4;
+}
+
+message UpsertRagConfigResponse {
+    string message = 1;
+}
+
+
+message GetRagConfigByKBIDRequest {
+    string kb_id = 1;
+}
+
+message GetRagConfigByKBIDResponse {
+    int32 chunk_token_size = 1;
+    int32 chunk_overlap_token_size = 2;
+    string embed_model = 3;
+}
+
+
+
+message StartBuildKBRequest {
+    string kb_id = 1;
+}
+
+message StartBuildKBResponse {
+    string message = 1;
+}
+
+message ParseAndBuildKBRequest {
+    string kb_id = 1;
+    string api_key = 2;
+    optional string project_api_key = 3;
+    string api_provider = 4;
+}
+
+
+message ParseAndBuildKBResponse {
+    string message = 1;
+}
+
+
+
+message KBFigure {
+    string id = 1;
+    string content = 2;
+    float score = 3;
+}
+
+
+message KBTable {
+    string id = 1;
+    float score = 2;
+    string content = 3;
+    string table_html = 4;
+}
+
+
+message QueryKBFiguresRequest {
+    string kb_id = 1;
+    string message_id = 2;
+    string query = 3;
+    string api_key = 4;
+    optional string project_api_key = 5;
+    string api_provider = 6;
+    float temperature = 7;
+    float threshold = 8;
+    int32 top_n = 9;
+}
+
+message QueryKBFiguresResponse {
+    repeated FileFigure figures = 1;
+}
+
+message QueryKBTablesRequest {
+    string kb_id = 1;
+    string message_id = 2;
+    string query = 3;
+    string api_key = 4;
+    optional string project_api_key = 5;
+    string api_provider = 6;
+    float temperature = 7;
+    float threshold = 8;
+    int32 top_n = 9;
+}
+
+message QueryKBTablesResponse {
+    repeated KBTable tables = 1;
+}
+
+message QueryKBContextRequest {
+    string kb_id = 1;
+    string query = 2;
+}
+
+
+message QueryKBContextResponse {
+    repeated string entities_context = 1;
+    repeated string relations_context = 2;
+    repeated string text_units_context = 3;
+}
+
+
+
+
+message KBGraphNode {
+    string entity_type = 1;
+    string description = 2;
+    string id = 3;
+    string source_id = 4;
+}
+
+message KBGraphEdge {
+    string source = 1;
+    string target = 2;
+    string keywords = 3;
+    string description = 4;
+    float weight = 5;
+    string source_id = 6;
+}
+
+message GetKBGraphRequest {
+    string kb_id = 1;
+}
+
+message GetKBGraphResponse {
+    repeated KBGraphNode nodes = 1;
+    repeated KBGraphEdge edges = 2;
+}

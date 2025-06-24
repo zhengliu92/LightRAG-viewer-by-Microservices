@@ -1,0 +1,20 @@
+FROM python:3.11.11
+WORKDIR /app
+COPY . .
+
+ENV REDIS_HOST=redis
+ENV REDIS_PORT=6379
+ENV REDIS_DB=0
+ENV REDIS_MAX_CONNECTIONS=10
+ENV PYTHONPATH=/app
+
+ENV API_KEY=
+ENV OPENAI_PROJECT_ID=
+ENV  OPENAI_API_KEY=
+
+
+RUN pip install -r requirements.txt --no-cache-dir --index-url https://pypi.mirrors.ustc.edu.cn/simple/
+
+CMD ["python", "main.py"]
+# CMD ["tail", "-f", "/dev/null"]
+

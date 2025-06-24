@@ -1,0 +1,38 @@
+syntax = "proto3";
+package file_service;
+
+import "file-messages.proto";
+
+option go_package = "github.com/zhengliu92/minio-file-server/file_service";
+
+service FileService {
+
+  rpc GetFilesUrl (GetFilesUrlRequest) returns (GetFilesUrlResponse) ;
+
+  rpc Base64UploadFiles (Base64UploadFilesRequest) returns (Base64UploadFilesResponse);
+
+  rpc SaveStringToFile (SaveStringToFileRequest) returns (SaveStringToFileResponse) ;
+
+  rpc UploadChunk (UploadChunkRequest) returns (UploadChunkResponse) ;
+
+  rpc CompleteUpload (CompleteUploadRequest) returns (CompleteUploadResponse);
+
+  rpc GetFileBytes (GetFileBytesRequest) returns (GetFileBytesResponse) ;
+
+  rpc GetFileText (GetFileTextRequest) returns (GetFileTextResponse) ;
+
+  rpc DeleteFiles (DeleteFilesRequest) returns (DeleteFilesResponse) ;
+
+  rpc CreateBucket (CreateBucketRequest) returns (CreateBucketResponse) ;
+
+  rpc BucketExists (BucketExistsRequest) returns (BucketExistsResponse) ;
+
+  rpc ListBucketFiles (ListBucketFilesRequest) returns (ListBucketFilesResponse);
+
+  rpc NewFolderInBucket (NewFolderInBucketRequest) returns (NewFolderInBucketResponse) ;
+  
+  rpc DeleteBucket (DeleteBucketRequest) returns (DeleteBucketResponse) ;
+
+  rpc IsObjectExists (IsObjectExistsRequest) returns (IsObjectExistsResponse) ; 
+
+}

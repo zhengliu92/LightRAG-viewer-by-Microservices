@@ -1,0 +1,150 @@
+syntax = "proto3";
+package pb;
+option go_package = "gateway_service/pb";
+import "rpc_kb.proto";
+import "google/protobuf/timestamp.proto";
+import "user.proto";
+message CreateProjectRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateProjectResponse {
+  string message = 1;
+}
+
+message AddUserToProjectRequest {
+  string project_id = 1;
+  string user_id = 2;
+}
+
+message AddUserToProjectResponse {
+  string message = 1;
+}
+
+message RemoveUserFromProjectRequest {
+  string project_id = 1;
+  string user_id = 2;
+}
+
+message RemoveUserFromProjectResponse {
+  string message = 1;
+}
+
+
+message GetUserProjectsWithKBsRequest {}
+
+message Project {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string owner_id = 4;
+  google.protobuf.Timestamp created_at = 5;
+  optional bool is_member = 6;
+  optional bool is_owner = 7;
+}
+
+
+message ProjectWithKBs {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string owner_id = 4;
+  google.protobuf.Timestamp created_at = 6;
+  repeated KB kbs = 7;
+}
+
+
+
+message GetUserProjectsWithKBsResponse {
+  repeated ProjectWithKBs projects = 1;
+}
+
+
+message AddKBToProjectRequest {
+  string project_id = 1;
+  string kb_id = 2;
+}
+
+message AddKBToProjectResponse {
+  string message = 1;
+}
+
+message RemoveKBFromProjectRequest {
+  string project_id = 1;
+  string kb_id = 2;
+}
+
+message RemoveKBFromProjectResponse {
+  string message = 1;
+}
+
+
+
+message UserWithProjects {
+  string id = 1;
+  string email = 2;
+  string username = 3;
+  bool is_active = 4;
+  string role_name = 5;
+  string hashed_password = 6;
+  string phone = 7;
+  string avatar = 8;
+  bool is_email_verified = 9;
+  google.protobuf.Timestamp last_login = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp deleted_at = 12;
+  repeated Project projects = 13;
+}
+  
+
+message ListUsersWithProjectsRequest {
+}
+
+message ListUsersWithProjectsResponse {
+  repeated UserWithProjects usersWithProjects = 1;
+}
+
+
+
+message ProjectWithUsersAndKBs {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string owner_id = 4;
+  google.protobuf.Timestamp created_at = 5;
+  repeated User users = 6;
+  repeated KB kbs = 7;
+}
+
+message GetProjectWithUsersAndKBsRequest {
+  string project_id = 1;
+}
+
+message GetProjectWithUsersAndKBsResponse {
+  ProjectWithUsersAndKBs project = 1;
+}
+
+message ListProjectsRequest {
+}
+
+message ListProjectsResponse {
+  repeated Project projects = 1;
+}
+
+message DeleteProjectRequest {
+  string project_id = 1;
+}
+
+message DeleteProjectResponse {
+  string message = 1;
+}
+
+message RenameProjectRequest {
+  string project_id = 1;
+  string new_name = 2;
+}
+
+message RenameProjectResponse {
+  string message = 1;
+}

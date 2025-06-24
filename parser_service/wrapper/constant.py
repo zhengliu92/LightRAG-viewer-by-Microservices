@@ -1,0 +1,1 @@
+MIN_UPDATE_TIME = 1.5

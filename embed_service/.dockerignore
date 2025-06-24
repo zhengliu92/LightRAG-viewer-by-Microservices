@@ -1,0 +1,8 @@
+test/
+__pycache__/
+.DS_Store
+.vscode/
+.pytest_cache/
+ossutil_output/
+.ossutil_checkpoint/
+BAAI/

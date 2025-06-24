@@ -1,0 +1,10 @@
+test/
+__pycache__/
+.DS_Store
+.vscode/
+.pytest_cache/
+example/
+store/
+test/
+*.log
+*.log.*

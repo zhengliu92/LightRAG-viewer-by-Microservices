@@ -1,0 +1,11 @@
+test/
+__pycache__/
+.DS_Store
+.vscode/
+example/
+temp/
+test/
+ossutil_output/
+.ossutil_checkpoint/
+datalab-to/
+vikp/

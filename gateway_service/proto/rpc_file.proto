@@ -1,0 +1,158 @@
+syntax = "proto3";
+package pb;
+option go_package = "gateway_service/pb";
+// import "google/api/field_behavior.proto";
+
+
+message BucketExistsRequest {
+}
+
+message BucketExistsResponse {
+  bool exists = 1;
+  string message = 2;
+}
+
+message NewFolderInBucketRequest {
+  string folder_name = 1;
+}
+
+message NewFolderInBucketResponse {
+  string message = 1;
+  string kb_file_id = 2;
+}
+
+
+message Base64UploadFilesRequest {
+  repeated File files = 1; // List of files to be uploaded
+}
+
+message Base64UploadFilesResponse {
+  string message = 1;     // Additional details
+}
+
+
+message File {
+  string name = 1;        // File name
+  bytes content = 2;      // File content
+}
+
+message ObjectInfo {
+  string name = 1;        // File name
+  optional int64 size = 2;
+  string last_modified = 3;
+}
+
+message CreateBucketRequest {
+}
+
+message CreateBucketResponse {
+  string message = 1;     // Additional details
+}
+
+message SaveStringToFileRequest{
+  string file_name = 1;
+  string content = 2;
+}
+
+message SaveStringToFileResponse{
+  string message = 1;
+}
+
+
+message ListBucketFilesRequest {
+  optional string folder_name = 1; // Name of the folder to list files from
+  repeated string omit_regexes = 2; // Name of the folder to list files from
+}
+
+message ListBucketFilesResponse {
+  string message = 1;
+  repeated ObjectInfo files = 2; 
+  optional string folder_name = 3;
+}
+
+
+message DeleteBucketRequest {
+}
+
+message DeleteBucketResponse {
+  string message = 1;     // Additional details
+}
+
+
+message GetFileBytesRequest {
+  string file_id = 1; 
+}
+
+message GetFileBytesResponse {
+  string file_name = 1;
+  string content_type = 2;
+  bytes content = 3; 
+}
+
+message DeleteFilesRequest {
+  repeated string file_names = 1; 
+}
+
+message DeleteFilesResponse {
+  string message = 1;    
+}
+
+message GetFilesUrlRequest {
+  repeated string file_names = 1; 
+}
+
+message GetFilesUrlResponse {
+  string message = 1;    
+  repeated string urls = 2; 
+}
+
+message UploadChunkRequest {
+  string file_name = 1;
+  int64 chunk_index = 2;
+  bytes chunk_data = 3;
+}
+
+message UploadChunkResponse {
+  string message = 1; // 状态消息
+  bool success = 2; // 是否成功
+  string chunk_name=3;
+}
+
+message CompleteUploadRequest {
+  string file_name = 1; // 文件名
+  int64 total_chunks = 2; // 分片总数
+}
+
+message CompleteUploadResponse {
+  string message = 1; // 状态消息
+  bool success = 2; // 是否成功
+
+}
+
+
+message GetFileTextRequest {
+  string file_name = 1; 
+}
+
+message GetFileTextResponse {
+  string message = 1;
+  string content = 2;
+}
+
+message UnlinkKBDocumentRequest {
+  string kb_id = 1;
+  string kb_file_id = 2;
+}
+
+message UnlinkKBDocumentResponse {
+  string message = 1;
+}
+
+// message RemoveFileFromKBRequest {
+//   string kb_id = 1;
+//   string kb_file_id = 2;
+// }
+
+// message RemoveFileFromKBResponse {
+//   string message = 1;
+// }
