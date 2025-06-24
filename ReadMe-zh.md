@@ -4,6 +4,8 @@
 
 [English](./Readme.md)
 
+点击此处查看[演示视频](./demo-video.mp4)
+
 ---
 
 ## 目录结构
@@ -140,7 +142,6 @@
 - 各服务支持通过 `.env` 或环境变量配置端口、数据库、MinIO、Redis、OpenAI Key 等参数。
 - 参考各服务目录下的 `dockerfile` 或代码中的 `ENV` 配置。
 
-
 ---
 
 ## 依赖与安装
@@ -158,10 +159,8 @@
 2. [BAAI bge-m3](https://huggingface.co/BAAI/bge-m3)
 3. [Marker](https://github.com/datalab-to/marker)
 
-
 ## License
-MIT
----
+
+## MIT
 
 欢迎联系作者。
-

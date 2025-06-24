@@ -4,8 +4,7 @@ This project implements a lightweight Retrieval-Augmented Generation (RAG) syste
 
 [中文介绍](./ReadMe-zh.md)
 
-
-[Click here to watch the demo video](./demo-video.mp4)
+Click here to watch the [demo video](./demo-video.mp4)
 
 ---
 
@@ -160,8 +159,6 @@ This project implements a lightweight Retrieval-Augmented Generation (RAG) syste
 2. [BAAI bge-m3](https://huggingface.co/BAAI/bge-m3)
 3. [Marker](https://github.com/datalab-to/marker)
 
-
 ## License
-MIT
----
 
+## MIT
